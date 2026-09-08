@@ -3,216 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DRAMAVERSE - Free K-Drama, C-Drama, Anime & Manga</title>
+  <title>KissAsian - Watch K-Drama, C-Drama, Anime & Read Manga Online Free</title>
   
-  <!-- SEO & Social Meta Tags -->
-  <meta name="description" content="Watch K-Drama, C-Drama, J-Drama, Anime & Read Manga Free in 1080p HD." />
-  <meta property="og:title" content="DRAMAVERSE - Watch & Read Direct" />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200" />
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Watch high quality K-Dramas, C-Dramas, Anime, and Movies online for free with English subtitles. Fast streaming servers." />
+  <meta name="keywords" content="KissAsian, KissAnime, K-Drama, C-Drama, Watch Drama Free, Anime Sub" />
 
   <style>
     :root {
-      --bg: #090a0f;
-      --card-bg: #13151f;
-      --accent-pink: #ff2a5f;
-      --accent-purple: #7000ff;
-      --text: #e1e3e8;
-      --text-muted: #8c90a0;
-      --glass: rgba(19, 21, 31, 0.8);
+      --bg-dark: #0a0b0d;
+      --panel-bg: #12141a;
+      --border-color: #1e222d;
+      --kiss-green: #00d26a;
+      --kiss-green-hover: #00b359;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); overflow-x: hidden; padding-bottom: 50px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); padding-bottom: 60px; }
 
-    /* Top Navigation Bar */
+    /* Kiss Style Top Navigation Bar */
     header {
+      background: var(--panel-bg);
+      border-bottom: 2px solid var(--kiss-green);
+      padding: 12px 5%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 30px;
-      background: var(--glass);
-      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
     .brand-logo {
-      font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      text-decoration: none;
-    }
-    .brand-logo span { color: var(--accent-pink); }
-
-    .nav-pills {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .pill-btn {
-      background: rgba(255,255,255,0.06);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid transparent;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .pill-btn.active, .pill-btn:hover {
-      background: var(--accent-pink);
-      box-shadow: 0 0 15px rgba(255, 42, 95, 0.4);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-pink {
-      background: var(--accent-pink);
-      color: #fff;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-
-    /* Hero Banner */
-    .hero-container {
-      position: relative;
-      height: 380px;
-      background: linear-gradient(180deg, rgba(9,10,15,0.3) 0%, var(--bg) 100%), 
-                  url('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1600') center/cover;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 40px 5%;
-    }
-
-    .hero-content h1 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 10px;
-      max-width: 800px;
+      text-decoration: none;
+      letter-spacing: -0.5px;
     }
+    .brand-logo span { color: var(--kiss-green); }
 
-    .hero-content p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 700px;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-    .hero-buttons {
+    .nav-tabs {
       display: flex;
-      gap: 15px;
-    }
-
-    /* Search & Section Container */
-    .section-wrap {
-      padding: 20px 5%;
-    }
-
-    .section-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
       gap: 8px;
     }
 
-    .section-sub {
-      color: var(--text-muted);
+    .nav-btn {
+      background: #181c24;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 4px;
       font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--kiss-green);
+      color: #000;
+      border-color: var(--kiss-green);
+    }
+
+    .search-container input {
+      background: #181c24;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: #fff;
+      outline: none;
+      width: 220px;
+      font-size: 0.85rem;
+    }
+    .search-container input:focus {
+      border-color: var(--kiss-green);
+    }
+
+    /* Main Section Container */
+    .container {
+      width: 90%;
+      max-width: 1250px;
+      margin: 25px auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
       margin-bottom: 20px;
     }
 
-    /* Media Grid */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--kiss-green);
+    }
+
+    /* Compact Poster Grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 18px;
     }
 
     .card {
-      background: var(--card-bg);
-      border-radius: 12px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
       position: relative;
-      border: 1px solid rgba(255,255,255,0.05);
     }
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transform: translateY(-5px);
+      border-color: var(--kiss-green);
     }
 
-    .card img {
+    .card-thumb {
+      position: relative;
       width: 100%;
-      height: 250px;
+      height: 240px;
+      overflow: hidden;
+      background: #181c24;
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
-    .card-details {
-      padding: 12px;
+    .badge-sub {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--kiss-green);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .badge-ep {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .card-info {
+      padding: 10px;
     }
 
     .card-title {
-      font-size: 0.9rem;
-      font-weight: 700;
+      font-size: 0.88rem;
+      font-weight: 600;
       color: #fff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .card-tag {
+    .card-meta {
       font-size: 0.75rem;
-      color: var(--accent-pink);
+      color: var(--text-muted);
       margin-top: 4px;
-      font-weight: 600;
     }
 
-    /* Video Player Modal */
+    /* Kiss-Style Player Modal */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.92);
+      background: rgba(0, 0, 0, 0.92);
       z-index: 2000;
       align-items: center;
       justify-content: center;
@@ -220,206 +207,269 @@
     }
     .modal.active { display: flex; }
 
-    .modal-content {
+    .modal-box {
       width: 100%;
-      max-width: 900px;
-      background: var(--card-bg);
-      border-radius: 12px;
+      max-width: 960px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
       overflow: hidden;
       position: relative;
     }
 
-    .player-frame {
-      width: 100%;
-      height: 500px;
-      border: none;
+    .player-container {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
       background: #000;
+    }
+
+    .player-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .modal-close {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(0,0,0,0.7);
+      top: 10px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.7);
       color: #fff;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       font-size: 1.2rem;
       width: 32px;
       height: 32px;
       border-radius: 50%;
       cursor: pointer;
-      z-index: 10;
+      z-index: 100;
     }
 
-    .server-switch {
-      padding: 15px;
+    .server-selector {
+      background: #0d0e12;
+      padding: 12px 20px;
       display: flex;
       gap: 10px;
-      background: #0d0f17;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    /* Message Floating Widget (In Screenshot) */
-    .msg-widget {
-      position: fixed;
-      top: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.95);
-      color: #111;
-      padding: 10px 18px;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      z-index: 90;
-      animation: fadeIn 0.5s ease;
+      border-top: 1px solid var(--border-color);
     }
-    .msg-widget strong { color: #000; }
-    .msg-close { cursor: pointer; opacity: 0.6; font-size: 1rem; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -10px); }
-      to { opacity: 1; transform: translate(-50%, 0); }
+    .server-selector span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Ad Placement Wrapper */
+    .ad-placeholder {
+      margin: 20px 0;
+      background: var(--panel-bg);
+      border: 1px dashed var(--border-color);
+      padding: 15px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Announcement Message (Matching Preview Screenshot) -->
-  <div class="msg-widget" id="msgBanner">
-    <span>✉️ <strong>MESSAGES</strong> &nbsp;|&nbsp; <strong>Anna:</strong> Watch this video alone ☕ (00:11)</span>
-    <span class="msg-close" onclick="document.getElementById('msgBanner').style.display='none'">✕</span>
-  </div>
-
-  <!-- Header -->
+  <!-- Navigation -->
   <header>
-    <a href="#" class="brand-logo">DRAMA<span>VERSE</span></a>
+    <a href="#" class="brand-logo">Kiss<span>Asian</span></a>
     
-    <div class="nav-pills">
-      <a href="#" class="pill-btn active">Home</a>
-      <a href="#" class="pill-btn">Mini Dramas</a>
-      <a href="#" class="pill-btn" onclick="filterCategory('manga')">📕 Manga Hub</a>
-      <a href="#" class="pill-btn">Guides</a>
-      <a href="#" class="pill-btn">Watchlist</a>
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="loadCategory('kdrama')">K-Drama</button>
+      <button class="nav-btn" onclick="loadCategory('cdrama')">C-Drama</button>
+      <button class="nav-btn" onclick="loadCategory('anime')">Anime</button>
+      <button class="nav-btn" onclick="loadCategory('manga')">Manga Reader</button>
     </div>
 
-    <div class="nav-actions">
-      <button class="btn-pink" onclick="triggerRandomBinge()">⚡ Random Short Binge</button>
-      <button class="btn-outline">STUDIO</button>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search drama or anime..." onkeyup="handleSearch(event)" />
     </div>
   </header>
 
-  <!-- Hero Banner -->
-  <div class="hero-container">
-    <div class="hero-content">
-      <h1>Watch K-Drama, C-Drama, J-Drama, Anime & Manga Free</h1>
-      <p>DramaVerse indexes nostalgic Korean classics, legendary Japanese romances, epic Chinese masterpieces, global vertical micro-dramas and a legal manga hub — with official 1080p stream links.</p>
-      <div class="hero-buttons">
-        <button class="btn-pink" onclick="playMedia('385687', 'movie')">▶ Watch now</button>
-        <button class="btn-outline">ⓘ More info</button>
-      </div>
+  <div class="container">
+    <!-- Ad Space Top -->
+    <div class="ad-placeholder" id="ad-top">
+      <!-- PASTE YOUR ADSTERRA BANNER CODE HERE -->
+      <span>ADVERTISEMENT AREA</span>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title" id="sectionHeading">Latest Korean Dramas</div>
+    </div>
+
+    <!-- Media Grid -->
+    <div class="grid" id="mediaGrid">
+      <p style="color: var(--text-muted);">Loading content...</p>
+    </div>
+
+    <!-- Ad Space Bottom -->
+    <div class="ad-placeholder" id="ad-bottom">
+      <!-- PASTE YOUR ADSTERRA BANNER CODE HERE -->
+      <span>ADVERTISEMENT AREA</span>
     </div>
   </div>
 
-  <!-- Content Section -->
-  <div class="section-wrap">
-    <div class="section-title">✨ Newest & Classic K-Drama Archive (2000 - 2026)</div>
-    <div class="section-sub">Every era of Asian television, romance, revenge and slice-of-life sorted by live popularity.</div>
-
-    <!-- Media Cards Grid -->
-    <div class="grid" id="contentGrid">
-      <!-- Generated Dynamically by JS -->
-    </div>
-  </div>
-
-  <!-- Universal Stream & Manga Reader Modal -->
+  <!-- Video & Manga Reader Overlay -->
   <div class="modal" id="playerModal">
-    <div class="modal-content">
+    <div class="modal-box">
       <button class="modal-close" onclick="closePlayer()">✕</button>
-      <iframe class="player-frame" id="streamIframe" src="" allowfullscreen></iframe>
+      <div class="player-container">
+        <iframe id="videoIframe" src="" allowfullscreen></iframe>
+      </div>
       
-      <div class="server-switch">
-        <span style="font-size: 0.85rem; align-self: center;">Switch Fast Server:</span>
-        <button class="btn-pink" onclick="switchServer(1)">Server 1 (1080p)</button>
-        <button class="btn-outline" onclick="switchServer(2)">Server 2 (Backup)</button>
-        <button class="btn-outline" onclick="switchServer(3)">Server 3 (Multi-Sub)</button>
+      <div class="server-selector">
+        <span>Fast Server Switcher:</span>
+        <button class="nav-btn active" onclick="switchServer(1)">Server 1 (1080p HD)</button>
+        <button class="nav-btn" onclick="switchServer(2)">Server 2 (AutoEmbed)</button>
+        <button class="nav-btn" onclick="switchServer(3)">Server 3 (2Embed)</button>
       </div>
     </div>
   </div>
 
-  <!-- Dynamic Logic Script -->
   <script>
-    const sampleCatalog = [
-      { id: '671', title: 'Running Man', type: 'tv', tag: 'K-Drama / Variety', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500' },
-      { id: '385687', title: 'Fast Revenge', type: 'movie', tag: 'C-Drama / Action', img: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500' },
-      { id: '37854', title: 'Cyber Legend', type: 'anime', tag: 'Anime / Sci-Fi', img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500' },
-      { id: 'manga-1', title: 'Solo Leveling', type: 'manga', tag: 'Manga / Webtoon', img: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500' }
-    ];
+    // TMDB Key for live Metadata & Posters
+    const TMDB_KEY = '3fd2be6f0c70a2a598f084dd149488e0';
+    let currentMedia = { id: '', type: 'tv' };
 
-    let activeMedia = { id: '385687', type: 'movie' };
+    window.onload = () => loadCategory('kdrama');
 
-    function renderGrid(items) {
-      const container = document.getElementById('contentGrid');
-      container.innerHTML = items.map(item => `
-        <div class="card" onclick="playMedia('${item.id}', '${item.type}')">
-          <img src="${item.img}" alt="${item.title}">
-          <div class="card-details">
-            <div class="card-title">${item.title}</div>
-            <div class="card-tag">${item.tag}</div>
+    async function loadCategory(cat) {
+      updateNavState(event);
+      const grid = document.getElementById('mediaGrid');
+      const heading = document.getElementById('sectionHeading');
+      grid.innerHTML = '<p style="color: var(--text-muted);">Fetching live titles...</p>';
+
+      if (cat === 'kdrama') {
+        heading.innerText = 'Latest Korean Dramas';
+        fetchTMDB(`https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_KEY}&with_original_language=ko&sort_by=popularity.desc`);
+      } else if (cat === 'cdrama') {
+        heading.innerText = 'Latest Chinese Dramas';
+        fetchTMDB(`https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_KEY}&with_original_language=zh&sort_by=popularity.desc`);
+      } else if (cat === 'anime') {
+        heading.innerText = 'Top Anime Series';
+        fetchAnime();
+      } else if (cat === 'manga') {
+        heading.innerText = 'Popular Manga';
+        fetchManga();
+      }
+    }
+
+    async function fetchTMDB(url) {
+      const res = await fetch(url);
+      const data = await res.json();
+      const grid = document.getElementById('mediaGrid');
+
+      grid.innerHTML = data.results.map(item => `
+        <div class="card" onclick="playMedia('${item.id}', '${item.first_air_date ? 'tv' : 'movie'}')">
+          <div class="card-thumb">
+            <span class="badge-sub">RAW/SUB</span>
+            <img src="${item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : 'https://via.placeholder.com/500x750'}" alt="${item.name || item.title}">
+            <span class="badge-ep">HD</span>
+          </div>
+          <div class="card-info">
+            <div class="card-title">${item.name || item.title}</div>
+            <div class="card-meta">Rating: ⭐ ${item.vote_average ? item.vote_average.toFixed(1) : 'N/A'}</div>
           </div>
         </div>
       `).join('');
     }
 
+    async function fetchAnime() {
+      const res = await fetch('https://api.jikan.moe/v4/top/anime');
+      const data = await res.json();
+      const grid = document.getElementById('mediaGrid');
+
+      grid.innerHTML = data.data.map(item => `
+        <div class="card" onclick="playMedia('${item.mal_id}', 'anime')">
+          <div class="card-thumb">
+            <span class="badge-sub">SUB</span>
+            <img src="${item.images.jpg.image_url}" alt="${item.title}">
+            <span class="badge-ep">EPS ${item.episodes || '?'}</span>
+          </div>
+          <div class="card-info">
+            <div class="card-title">${item.title}</div>
+            <div class="card-meta">Score: ⭐ ${item.score || 'N/A'}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function fetchManga() {
+      const res = await fetch('https://api.jikan.moe/v4/top/manga');
+      const data = await res.json();
+      const grid = document.getElementById('mediaGrid');
+
+      grid.innerHTML = data.data.map(item => `
+        <div class="card" onclick="openMangaReader('${item.title}')">
+          <div class="card-thumb">
+            <span class="badge-sub">MANGA</span>
+            <img src="${item.images.jpg.image_url}" alt="${item.title}">
+          </div>
+          <div class="card-info">
+            <div class="card-title">${item.title}</div>
+            <div class="card-meta">Read Chapters</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function handleSearch(e) {
+      if (e.key === 'Enter') {
+        const query = e.target.value.trim();
+        if (!query) return;
+        document.getElementById('sectionHeading').innerText = `Search Results: "${query}"`;
+        fetchTMDB(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}`);
+      }
+    }
+
     function playMedia(id, type) {
-      activeMedia = { id, type };
+      currentMedia = { id, type };
       const modal = document.getElementById('playerModal');
-      const iframe = document.getElementById('streamIframe');
-      
-      if(type === 'manga') {
-        // Direct Manga Reader Feed
-        iframe.src = `https://mangadex.org/title/${id}`;
+      const iframe = document.getElementById('videoIframe');
+
+      if (type === 'anime') {
+        iframe.src = `https://vidsrc.to/embed/anime/${id}`;
       } else {
-        // Direct HD Video Player (VidSrc Embed)
         iframe.src = `https://vidsrc.to/embed/${type}/${id}`;
       }
 
       modal.classList.add('active');
     }
 
+    function openMangaReader(title) {
+      const modal = document.getElementById('playerModal');
+      const iframe = document.getElementById('videoIframe');
+      iframe.src = `https://mangadex.org/titles?q=${encodeURIComponent(title)}`;
+      modal.classList.add('active');
+    }
+
     function switchServer(serverNum) {
-      const iframe = document.getElementById('streamIframe');
-      if (serverNum === 1) iframe.src = `https://vidsrc.to/embed/${activeMedia.type}/${activeMedia.id}`;
-      if (serverNum === 2) iframe.src = `https://2embed.org/embed/${activeMedia.id}`;
-      if (serverNum === 3) iframe.src = `https://autoembed.to/${activeMedia.type}/tmdb/${activeMedia.id}`;
+      const iframe = document.getElementById('videoIframe');
+      if (serverNum === 1) iframe.src = `https://vidsrc.to/embed/${currentMedia.type}/${currentMedia.id}`;
+      if (serverNum === 2) iframe.src = `https://autoembed.to/${currentMedia.type}/tmdb/${currentMedia.id}`;
+      if (serverNum === 3) iframe.src = `https://2embed.org/embed/${currentMedia.id}`;
     }
 
     function closePlayer() {
       const modal = document.getElementById('playerModal');
-      const iframe = document.getElementById('streamIframe');
-      iframe.src = '';
+      document.getElementById('videoIframe').src = '';
       modal.classList.remove('active');
     }
 
-    function triggerRandomBinge() {
-      const randomItem = sampleCatalog[Math.floor(Math.random() * sampleCatalog.length)];
-      playMedia(randomItem.id, randomItem.type);
+    function updateNavState(e) {
+      if (!e || !e.target) return;
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
     }
-
-    function filterCategory(cat) {
-      if (cat === 'manga') {
-        renderGrid(sampleCatalog.filter(x => x.type === 'manga'));
-      }
-    }
-
-    // Initialize Layout
-    renderGrid(sampleCatalog);
   </script>
 
-  <!-- Auto-Inject Ad Networks (Adsterra / Popunder) -->
+  <!-- Auto Ad Injection Script (Adsterra / Popunder Key) -->
   <script type="text/javascript" src="//pl123456.pu3sh.com/socialbar.js" async="async"></script>
 </body>
 </html>
