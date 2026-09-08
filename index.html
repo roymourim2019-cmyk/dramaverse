@@ -21,7 +21,7 @@
       --text-dim: #666666;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
     body { background: var(--bg-main); color: var(--text); padding-bottom: 50px; }
 
     header {
@@ -33,10 +33,15 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
-    .nav-btns { display: flex; gap: 8px; }
+    .search-box { position: relative; flex: 1; max-width: 300px; }
+    .search-box input { width: 100%; padding: 6px 12px; background: #1f2125; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; }
+    
+    .nav-btns { display: flex; gap: 8px; flex-wrap: wrap; }
     .btn { background: none; border: none; color: #fff; padding: 6px 12px; cursor: pointer; font-size: 0.85rem; font-weight: 600; border-radius: 4px; }
     .btn.active, .btn:hover { background: var(--accent); }
 
@@ -52,7 +57,7 @@
     .hero-title { font-size: 1.8rem; font-weight: 800; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 4px; color: #fff; }
 
     .grid-container { padding: 20px 4%; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 15px; margin-top: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
 
     .card { background: var(--bg-card); border-radius: 6px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
     .thumb { width: 100%; aspect-ratio: 16/9; position: relative; background: #222; }
@@ -60,17 +65,26 @@
     .badge { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; }
     .card-title { padding: 8px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+    /* Player Overlay */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
     .modal.active { display: flex; }
-    .modal-box { background: var(--bg-card); width: 100%; max-width: 800px; padding: 20px; border-radius: 8px; position: relative; }
+    .modal-box { background: var(--bg-card); width: 100%; max-width: 900px; padding: 20px; border-radius: 8px; position: relative; max-height: 90vh; overflow-y: auto; }
     .close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: var(--text); font-size: 1.2rem; cursor: pointer; }
-    iframe { width: 100%; height: 450px; border: none; }
+    iframe { width: 100%; height: 450px; border: none; border-radius: 6px; margin-top: 10px; }
+
+    .controls-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .controls-row select, .controls-row button { padding: 6px 12px; background: var(--bg-main); color: var(--text); border: 1px solid #444; border-radius: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
 
   <header>
     <a href="#" class="logo">DRAMAVERSE</a>
+    
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search show or anime..." onkeyup="handleSearch(event)">
+    </div>
+
     <div class="nav-btns">
       <button class="btn active" onclick="loadCategory('kdrama')">K-Drama</button>
       <button class="btn" onclick="loadCategory('cdrama')">C-Drama</button>
@@ -93,10 +107,28 @@
     </div>
   </div>
 
-  <!-- Player Modal -->
+  <!-- Player & Streaming Controls -->
   <div class="modal" id="playerModal">
     <div class="modal-box">
       <button class="close-btn" onclick="closeModal('playerModal')">✕</button>
+      <h3 id="playerTitle">Streaming</h3>
+
+      <div class="controls-row">
+        <label>Server:
+          <select id="serverSelect" onchange="updatePlayerSource()">
+            <option value="vidsrc">Server 1 (VidSrc)</option>
+            <option value="autoembed">Server 2 (AutoEmbed)</option>
+            <option value="2embed">Server 3 (2Embed)</option>
+          </select>
+        </label>
+
+        <label>Episode:
+          <select id="episodeSelect" onchange="updatePlayerSource()">
+            <!-- Episode options populating dynamically -->
+          </select>
+        </label>
+      </div>
+
       <iframe id="videoIframe" src="" allowfullscreen></iframe>
     </div>
   </div>
@@ -106,7 +138,10 @@
     <div class="modal-box">
       <button class="close-btn" onclick="closeModal('faqModal')">✕</button>
       <h3>Frequently Asked Questions</h3>
-      <p style="color: var(--text-dim); margin-top: 10px;"><b>Q: How do I stream episodes?</b><br>Click any media card to launch the embedded video player.</p>
+      <p style="color: var(--text-dim); margin-top: 10px;">
+        <b>Q: Why is a video buffering?</b><br>
+        A: Use the "Server" dropdown above the video player to switch to an alternate streaming server.
+      </p>
     </div>
   </div>
 
@@ -122,6 +157,7 @@
 
   <script>
     const TMDB_KEY = '3fd2be6f0c70a2a598f084dd149488e0';
+    let currentItem = { id: null, type: null, title: '' };
 
     document.addEventListener("DOMContentLoaded", () => {
       loadCategory('kdrama');
@@ -141,14 +177,14 @@
     function submitReq() {
       const val = document.getElementById('reqInput').value;
       if(val) {
-        alert(`Request received for: "${val}"`);
+        alert(`Request submitted for: "${val}"`);
         closeModal('requestModal');
       }
     }
 
     async function loadCategory(cat) {
       const grid = document.getElementById('mainGrid');
-      grid.innerHTML = '<p style="color: var(--text-dim);">Loading...</p>';
+      grid.innerHTML = '<p style="color: var(--text-dim);">Loading titles...</p>';
 
       if (cat === 'kdrama' || cat === 'cdrama') {
         const lang = cat === 'kdrama' ? 'ko' : 'zh';
@@ -163,6 +199,27 @@
       }
     }
 
+    async function handleSearch(e) {
+      const query = e.target.value.trim();
+      if(query.length < 3) return;
+
+      const grid = document.getElementById('mainGrid');
+      document.getElementById('sectionHeading').innerText = `Search results for: "${query}"`;
+      
+      const res = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      
+      grid.innerHTML = data.results.map(item => `
+        <div class="card" onclick="setupPlayer('${item.id}', 'tv', '${item.name || item.title}')">
+          <div class="thumb">
+            <img src="${item.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + item.backdrop_path : 'https://image.tmdb.org/t/p/w500' + item.poster_path}">
+            <span class="badge">EP 1</span>
+          </div>
+          <div class="card-title">${item.name || item.title}</div>
+        </div>
+      `).join('');
+    }
+
     async function fetchTMDB(url) {
       const res = await fetch(url);
       const data = await res.json();
@@ -174,7 +231,7 @@
       }
 
       grid.innerHTML = data.results.map(item => `
-        <div class="card" onclick="playMedia('${item.id}', 'tv')">
+        <div class="card" onclick="setupPlayer('${item.id}', 'tv', '${item.name || item.title}')">
           <div class="thumb">
             <img src="${item.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + item.backdrop_path : 'https://image.tmdb.org/t/p/w500' + item.poster_path}">
             <span class="badge">EP 1</span>
@@ -190,7 +247,7 @@
       const grid = document.getElementById('mainGrid');
 
       grid.innerHTML = data.data.map(item => `
-        <div class="card" onclick="playMedia('${item.mal_id}', 'anime')">
+        <div class="card" onclick="setupPlayer('${item.mal_id}', 'anime', '${item.title}')">
           <div class="thumb">
             <img src="${item.images.jpg.large_image_url}">
             <span class="badge">EPS ${item.episodes || '?'}</span>
@@ -216,10 +273,40 @@
       `).join('');
     }
 
-    function playMedia(id, type) {
-      const iframe = document.getElementById('videoIframe');
-      iframe.src = type === 'anime' ? `https://vidsrc.to/embed/anime/${id}` : `https://vidsrc.to/embed/tv/${id}`;
+    function setupPlayer(id, type, title) {
+      currentItem = { id, type, title };
+      document.getElementById('playerTitle').innerText = title;
+
+      // Populate Episode Selector (1 to 24)
+      const epSelect = document.getElementById('episodeSelect');
+      epSelect.innerHTML = '';
+      for (let i = 1; i <= 24; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = `Episode ${i}`;
+        epSelect.appendChild(opt);
+      }
+
+      updatePlayerSource();
       openModal('playerModal');
+    }
+
+    function updatePlayerSource() {
+      const server = document.getElementById('serverSelect').value;
+      const ep = document.getElementById('episodeSelect').value;
+      const iframe = document.getElementById('videoIframe');
+
+      if (currentItem.type === 'anime') {
+        iframe.src = `https://vidsrc.to/embed/anime/${currentItem.id}/${ep}`;
+      } else {
+        if (server === 'vidsrc') {
+          iframe.src = `https://vidsrc.to/embed/tv/${currentItem.id}/1/${ep}`;
+        } else if (server === 'autoembed') {
+          iframe.src = `https://player.autoembed.cc/embed/tv/${currentItem.id}/1/${ep}`;
+        } else {
+          iframe.src = `https://www.2embed.cc/embedtv/${currentItem.id}&s=1&e=${ep}`;
+        }
+      }
     }
 
     function openManga(title) {
