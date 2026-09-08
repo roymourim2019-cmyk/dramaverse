@@ -3,359 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KissAsian - Watch K-Drama, C-Drama, Anime & Read Manga Online Free</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Watch high quality K-Dramas, C-Dramas, Anime, and Movies online for free with English subtitles. Fast streaming servers." />
-  <meta name="keywords" content="KissAsian, KissAnime, K-Drama, C-Drama, Watch Drama Free, Anime Sub" />
-
+  <title>Dramaverse - Watch K-Drama, C-Drama, Anime & Read Manga</title>
+  <link rel="manifest" href="/manifest.json" />
   <style>
     :root {
-      --bg-dark: #0a0b0d;
-      --panel-bg: #12141a;
-      --border-color: #1e222d;
-      --kiss-green: #00d26a;
-      --kiss-green-hover: #00b359;
-      --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
+      --bg-main: #141517;
+      --bg-card: #1f2125;
+      --accent: #ff6b00;
+      --text: #ffffff;
+      --text-dim: #a0a0a0;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); padding-bottom: 60px; }
+    [data-theme="light"] {
+      --bg-main: #f4f5f7;
+      --bg-card: #ffffff;
+      --text: #111111;
+      --text-dim: #666666;
+    }
 
-    /* Kiss Style Top Navigation Bar */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: var(--bg-main); color: var(--text); padding-bottom: 50px; }
+
     header {
-      background: var(--panel-bg);
-      border-bottom: 2px solid var(--kiss-green);
-      padding: 12px 5%;
+      background: #0d0e10;
+      padding: 12px 4%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
-    .brand-logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-    .brand-logo span { color: var(--kiss-green); }
+    .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; }
+    .nav-btns { display: flex; gap: 8px; }
+    .btn { background: none; border: none; color: #fff; padding: 6px 12px; cursor: pointer; font-size: 0.85rem; font-weight: 600; border-radius: 4px; }
+    .btn.active, .btn:hover { background: var(--accent); }
 
-    .nav-tabs {
+    .hero {
+      height: 350px;
+      background-size: cover;
+      background-position: center;
       display: flex;
-      gap: 8px;
+      align-items: flex-end;
+      padding: 30px 4%;
+      box-shadow: inset 0 -100px 80px var(--bg-main);
     }
+    .hero-title { font-size: 1.8rem; font-weight: 800; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 4px; color: #fff; }
 
-    .nav-btn {
-      background: #181c24;
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+    .grid-container { padding: 20px 4%; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 15px; margin-top: 15px; }
 
-    .nav-btn:hover, .nav-btn.active {
-      background: var(--kiss-green);
-      color: #000;
-      border-color: var(--kiss-green);
-    }
+    .card { background: var(--bg-card); border-radius: 6px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
+    .thumb { width: 100%; aspect-ratio: 16/9; position: relative; background: #222; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .badge { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; }
+    .card-title { padding: 8px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .search-container input {
-      background: #181c24;
-      border: 1px solid var(--border-color);
-      padding: 8px 16px;
-      border-radius: 20px;
-      color: #fff;
-      outline: none;
-      width: 220px;
-      font-size: 0.85rem;
-    }
-    .search-container input:focus {
-      border-color: var(--kiss-green);
-    }
-
-    /* Main Section Container */
-    .container {
-      width: 90%;
-      max-width: 1250px;
-      margin: 25px auto;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section-title::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 18px;
-      background: var(--kiss-green);
-    }
-
-    /* Compact Poster Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--panel-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-      position: relative;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: var(--kiss-green);
-    }
-
-    .card-thumb {
-      position: relative;
-      width: 100%;
-      height: 240px;
-      overflow: hidden;
-      background: #181c24;
-    }
-
-    .card-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .badge-sub {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: var(--kiss-green);
-      color: #000;
-      font-size: 0.7rem;
-      font-weight: 800;
-      padding: 3px 6px;
-      border-radius: 3px;
-      text-transform: uppercase;
-    }
-
-    .badge-ep {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 2px 6px;
-      border-radius: 3px;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .card-info {
-      padding: 10px;
-    }
-
-    .card-title {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .card-meta {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Kiss-Style Player Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
     .modal.active { display: flex; }
-
-    .modal-box {
-      width: 100%;
-      max-width: 960px;
-      background: var(--panel-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .player-container {
-      position: relative;
-      padding-top: 56.25%; /* 16:9 Aspect Ratio */
-      background: #000;
-    }
-
-    .player-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      background: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 1.2rem;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 100;
-    }
-
-    .server-selector {
-      background: #0d0e12;
-      padding: 12px 20px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      border-top: 1px solid var(--border-color);
-    }
-
-    .server-selector span {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* Ad Placement Wrapper */
-    .ad-placeholder {
-      margin: 20px 0;
-      background: var(--panel-bg);
-      border: 1px dashed var(--border-color);
-      padding: 15px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      border-radius: 6px;
-    }
+    .modal-box { background: var(--bg-card); width: 100%; max-width: 800px; padding: 20px; border-radius: 8px; position: relative; }
+    .close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: var(--text); font-size: 1.2rem; cursor: pointer; }
+    iframe { width: 100%; height: 450px; border: none; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <header>
-    <a href="#" class="brand-logo">Kiss<span>Asian</span></a>
-    
-    <div class="nav-tabs">
-      <button class="nav-btn active" onclick="loadCategory('kdrama')">K-Drama</button>
-      <button class="nav-btn" onclick="loadCategory('cdrama')">C-Drama</button>
-      <button class="nav-btn" onclick="loadCategory('anime')">Anime</button>
-      <button class="nav-btn" onclick="loadCategory('manga')">Manga Reader</button>
-    </div>
-
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search drama or anime..." onkeyup="handleSearch(event)" />
+    <a href="#" class="logo">DRAMAVERSE</a>
+    <div class="nav-btns">
+      <button class="btn active" onclick="loadCategory('kdrama')">K-Drama</button>
+      <button class="btn" onclick="loadCategory('cdrama')">C-Drama</button>
+      <button class="btn" onclick="loadCategory('anime')">Anime</button>
+      <button class="btn" onclick="loadCategory('manga')">Manga</button>
+      <button class="btn" onclick="openModal('requestModal')">📝 Request</button>
+      <button class="btn" onclick="openModal('faqModal')">💬 FAQ</button>
+      <button class="btn" onclick="toggleTheme()">🎨 Theme</button>
     </div>
   </header>
 
-  <div class="container">
-    <!-- Ad Space Top -->
-    <div class="ad-placeholder" id="ad-top">
-      <!-- PASTE YOUR ADSTERRA BANNER CODE HERE -->
-      <span>ADVERTISEMENT AREA</span>
-    </div>
+  <div class="hero" id="heroBanner" style="background-image: url('https://image.tmdb.org/t/p/original/8Y4P1A3444I.jpg');">
+    <div class="hero-title" id="heroTitle">Featured Releases</div>
+  </div>
 
-    <div class="section-header">
-      <div class="section-title" id="sectionHeading">Latest Korean Dramas</div>
-    </div>
-
-    <!-- Media Grid -->
-    <div class="grid" id="mediaGrid">
-      <p style="color: var(--text-muted);">Loading content...</p>
-    </div>
-
-    <!-- Ad Space Bottom -->
-    <div class="ad-placeholder" id="ad-bottom">
-      <!-- PASTE YOUR ADSTERRA BANNER CODE HERE -->
-      <span>ADVERTISEMENT AREA</span>
+  <div class="grid-container">
+    <h2 id="sectionHeading">Latest Updates</h2>
+    <div class="grid" id="mainGrid">
+      <p style="color: var(--text-dim);">Loading titles...</p>
     </div>
   </div>
 
-  <!-- Video & Manga Reader Overlay -->
+  <!-- Player Modal -->
   <div class="modal" id="playerModal">
     <div class="modal-box">
-      <button class="modal-close" onclick="closePlayer()">✕</button>
-      <div class="player-container">
-        <iframe id="videoIframe" src="" allowfullscreen></iframe>
-      </div>
-      
-      <div class="server-selector">
-        <span>Fast Server Switcher:</span>
-        <button class="nav-btn active" onclick="switchServer(1)">Server 1 (1080p HD)</button>
-        <button class="nav-btn" onclick="switchServer(2)">Server 2 (AutoEmbed)</button>
-        <button class="nav-btn" onclick="switchServer(3)">Server 3 (2Embed)</button>
-      </div>
+      <button class="close-btn" onclick="closeModal('playerModal')">✕</button>
+      <iframe id="videoIframe" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- FAQ Modal -->
+  <div class="modal" id="faqModal">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeModal('faqModal')">✕</button>
+      <h3>Frequently Asked Questions</h3>
+      <p style="color: var(--text-dim); margin-top: 10px;"><b>Q: How do I stream episodes?</b><br>Click any media card to launch the embedded video player.</p>
+    </div>
+  </div>
+
+  <!-- Request Modal -->
+  <div class="modal" id="requestModal">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeModal('requestModal')">✕</button>
+      <h3>Request a Title</h3>
+      <input type="text" id="reqInput" placeholder="Enter drama or anime name..." style="width: 100%; padding: 8px; margin: 15px 0; background: var(--bg-main); color: var(--text); border: 1px solid rgba(255,255,255,0.1);">
+      <button onclick="submitReq()" style="background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Submit Request</button>
     </div>
   </div>
 
   <script>
-    // TMDB Key for live Metadata & Posters
     const TMDB_KEY = '3fd2be6f0c70a2a598f084dd149488e0';
-    let currentMedia = { id: '', type: 'tv' };
 
-    window.onload = () => loadCategory('kdrama');
+    document.addEventListener("DOMContentLoaded", () => {
+      loadCategory('kdrama');
+    });
+
+    function toggleTheme() {
+      const body = document.body;
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { 
+      document.getElementById(id).classList.remove('active');
+      if(id === 'playerModal') document.getElementById('videoIframe').src = '';
+    }
+
+    function submitReq() {
+      const val = document.getElementById('reqInput').value;
+      if(val) {
+        alert(`Request received for: "${val}"`);
+        closeModal('requestModal');
+      }
+    }
 
     async function loadCategory(cat) {
-      updateNavState(event);
-      const grid = document.getElementById('mediaGrid');
-      const heading = document.getElementById('sectionHeading');
-      grid.innerHTML = '<p style="color: var(--text-muted);">Fetching live titles...</p>';
+      const grid = document.getElementById('mainGrid');
+      grid.innerHTML = '<p style="color: var(--text-dim);">Loading...</p>';
 
-      if (cat === 'kdrama') {
-        heading.innerText = 'Latest Korean Dramas';
-        fetchTMDB(`https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_KEY}&with_original_language=ko&sort_by=popularity.desc`);
-      } else if (cat === 'cdrama') {
-        heading.innerText = 'Latest Chinese Dramas';
-        fetchTMDB(`https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_KEY}&with_original_language=zh&sort_by=popularity.desc`);
+      if (cat === 'kdrama' || cat === 'cdrama') {
+        const lang = cat === 'kdrama' ? 'ko' : 'zh';
+        document.getElementById('sectionHeading').innerText = cat === 'kdrama' ? 'Top K-Dramas' : 'Top C-Dramas';
+        fetchTMDB(`https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_KEY}&with_original_language=${lang}&sort_by=popularity.desc`);
       } else if (cat === 'anime') {
-        heading.innerText = 'Top Anime Series';
+        document.getElementById('sectionHeading').innerText = 'Popular Anime';
         fetchAnime();
       } else if (cat === 'manga') {
-        heading.innerText = 'Popular Manga';
+        document.getElementById('sectionHeading').innerText = 'Manga Reader';
         fetchManga();
       }
     }
@@ -363,19 +166,20 @@
     async function fetchTMDB(url) {
       const res = await fetch(url);
       const data = await res.json();
-      const grid = document.getElementById('mediaGrid');
+      const grid = document.getElementById('mainGrid');
+
+      if (data.results[0]) {
+        document.getElementById('heroBanner').style.backgroundImage = `url(https://image.tmdb.org/t/p/original${data.results[0].backdrop_path})`;
+        document.getElementById('heroTitle').innerText = data.results[0].name || data.results[0].title;
+      }
 
       grid.innerHTML = data.results.map(item => `
-        <div class="card" onclick="playMedia('${item.id}', '${item.first_air_date ? 'tv' : 'movie'}')">
-          <div class="card-thumb">
-            <span class="badge-sub">RAW/SUB</span>
-            <img src="${item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : 'https://via.placeholder.com/500x750'}" alt="${item.name || item.title}">
-            <span class="badge-ep">HD</span>
+        <div class="card" onclick="playMedia('${item.id}', 'tv')">
+          <div class="thumb">
+            <img src="${item.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + item.backdrop_path : 'https://image.tmdb.org/t/p/w500' + item.poster_path}">
+            <span class="badge">EP 1</span>
           </div>
-          <div class="card-info">
-            <div class="card-title">${item.name || item.title}</div>
-            <div class="card-meta">Rating: ⭐ ${item.vote_average ? item.vote_average.toFixed(1) : 'N/A'}</div>
-          </div>
+          <div class="card-title">${item.name || item.title}</div>
         </div>
       `).join('');
     }
@@ -383,19 +187,15 @@
     async function fetchAnime() {
       const res = await fetch('https://api.jikan.moe/v4/top/anime');
       const data = await res.json();
-      const grid = document.getElementById('mediaGrid');
+      const grid = document.getElementById('mainGrid');
 
       grid.innerHTML = data.data.map(item => `
         <div class="card" onclick="playMedia('${item.mal_id}', 'anime')">
-          <div class="card-thumb">
-            <span class="badge-sub">SUB</span>
-            <img src="${item.images.jpg.image_url}" alt="${item.title}">
-            <span class="badge-ep">EPS ${item.episodes || '?'}</span>
+          <div class="thumb">
+            <img src="${item.images.jpg.large_image_url}">
+            <span class="badge">EPS ${item.episodes || '?'}</span>
           </div>
-          <div class="card-info">
-            <div class="card-title">${item.title}</div>
-            <div class="card-meta">Score: ⭐ ${item.score || 'N/A'}</div>
-          </div>
+          <div class="card-title">${item.title}</div>
         </div>
       `).join('');
     }
@@ -403,73 +203,30 @@
     async function fetchManga() {
       const res = await fetch('https://api.jikan.moe/v4/top/manga');
       const data = await res.json();
-      const grid = document.getElementById('mediaGrid');
+      const grid = document.getElementById('mainGrid');
 
       grid.innerHTML = data.data.map(item => `
-        <div class="card" onclick="openMangaReader('${item.title}')">
-          <div class="card-thumb">
-            <span class="badge-sub">MANGA</span>
-            <img src="${item.images.jpg.image_url}" alt="${item.title}">
+        <div class="card" onclick="openManga('${item.title}')">
+          <div class="thumb">
+            <img src="${item.images.jpg.large_image_url}">
+            <span class="badge">MANGA</span>
           </div>
-          <div class="card-info">
-            <div class="card-title">${item.title}</div>
-            <div class="card-meta">Read Chapters</div>
-          </div>
+          <div class="card-title">${item.title}</div>
         </div>
       `).join('');
     }
 
-    async function handleSearch(e) {
-      if (e.key === 'Enter') {
-        const query = e.target.value.trim();
-        if (!query) return;
-        document.getElementById('sectionHeading').innerText = `Search Results: "${query}"`;
-        fetchTMDB(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}`);
-      }
-    }
-
     function playMedia(id, type) {
-      currentMedia = { id, type };
-      const modal = document.getElementById('playerModal');
       const iframe = document.getElementById('videoIframe');
-
-      if (type === 'anime') {
-        iframe.src = `https://vidsrc.to/embed/anime/${id}`;
-      } else {
-        iframe.src = `https://vidsrc.to/embed/${type}/${id}`;
-      }
-
-      modal.classList.add('active');
+      iframe.src = type === 'anime' ? `https://vidsrc.to/embed/anime/${id}` : `https://vidsrc.to/embed/tv/${id}`;
+      openModal('playerModal');
     }
 
-    function openMangaReader(title) {
-      const modal = document.getElementById('playerModal');
+    function openManga(title) {
       const iframe = document.getElementById('videoIframe');
       iframe.src = `https://mangadex.org/titles?q=${encodeURIComponent(title)}`;
-      modal.classList.add('active');
-    }
-
-    function switchServer(serverNum) {
-      const iframe = document.getElementById('videoIframe');
-      if (serverNum === 1) iframe.src = `https://vidsrc.to/embed/${currentMedia.type}/${currentMedia.id}`;
-      if (serverNum === 2) iframe.src = `https://autoembed.to/${currentMedia.type}/tmdb/${currentMedia.id}`;
-      if (serverNum === 3) iframe.src = `https://2embed.org/embed/${currentMedia.id}`;
-    }
-
-    function closePlayer() {
-      const modal = document.getElementById('playerModal');
-      document.getElementById('videoIframe').src = '';
-      modal.classList.remove('active');
-    }
-
-    function updateNavState(e) {
-      if (!e || !e.target) return;
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-      e.target.classList.add('active');
+      openModal('playerModal');
     }
   </script>
-
-  <!-- Auto Ad Injection Script (Adsterra / Popunder Key) -->
-  <script type="text/javascript" src="//pl123456.pu3sh.com/socialbar.js" async="async"></script>
 </body>
 </html>
