@@ -1,0 +1,9 @@
+{
+  "short_name": "Dramaverse",
+  "name": "Dramaverse Streaming Platform",
+  "icons": [],
+  "start_url": "/",
+  "background_color": "#141517",
+  "theme_color": "#ff6b00",
+  "display": "standalone"
+}
